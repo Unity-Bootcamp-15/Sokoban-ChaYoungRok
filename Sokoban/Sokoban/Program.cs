@@ -14,8 +14,8 @@
             Console.Clear();
             int x = 5;
             int y = 10;
-            int wall_x = 1;
-            int wall_y = 1;
+            int wall_x = 10;
+            int wall_y = 10;
             string [] wall =  new string[]{"@","Λ",">","<","v"};
 
             Console.SetCursorPosition(x,y);
@@ -34,6 +34,10 @@
 
                         Console.Clear();
                         ++y;
+                        if(y==wall_y && x == wall_x)
+                        {
+                            --y;
+                        }
                         break;
 
                     case ConsoleKey.UpArrow:
@@ -42,7 +46,12 @@
                         --y;
                         if (y == 0)
                         {
-                            y++;
+                            ++y;
+                        }
+
+                        if(y==wall_y && x==wall_x)
+                        {
+                            ++y;
                         }
                         break;
 
@@ -50,7 +59,10 @@
 
                         Console.Clear();
                         ++x;
-
+                        if(x==wall_x && y == wall_y)
+                        {
+                            --x;
+                        }
                         break;
                     case ConsoleKey.LeftArrow:
 
@@ -58,9 +70,12 @@
                         --x;
                         if (x == 0)
                         {
-                            x++;
+                            ++x;
                         }
-
+                        if(x==wall_x && y == wall_y)
+                        {
+                            ++x;
+                        }
                         break;
 
                     case ConsoleKey.F5:
@@ -68,7 +83,6 @@
 
                         x = 5;
                         y = 10;
-
                         break;
 
                 }
