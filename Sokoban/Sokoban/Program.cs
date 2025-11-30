@@ -69,33 +69,50 @@ namespace Sokoban
                 Console.Clear();
                 int Playerx = 1;
                 int Playery = 1;
-                int Wallx = 5;
-                int Wally = 2;
+                int Wallx = 6;
+                int Wally = 3;
                 string[] WallCheck = new string[] { "★", "Λ", "☆", "-" };
                 int MapSizeMax_x = 20;
                 int MapSizeMax_y = 10;
                 int MapSizeMin_x = 0;
                 int MapSizeMin_y = 0;
+                int Goalx = 15;
+                int Goaly = 7;
+                int Boxx = 7;
+                int Boxy = 4;   
 
-                /*
-                지금 구현해야할거 == 벽, 박스, 골인하기
-                맵 크기 20*10
-                플레이어 스타트 위치 (6,3)
-                */
-
+               // 지금 구현해야할거 == 박스, 골인하기
 
                 Console.SetCursorPosition(Playerx, Playery);
                 Console.Write("*");
+                
 
-                int Infinity = 1;
+            int Infinity = 1; //그냥 와일문에 트루 박으셈. 이거 장난용임
                 while (Infinity < 5)
                 {
                     Console.SetCursorPosition(0, 0);
                     StageMaker();
                     Console.SetCursorPosition(Wallx, Wally);
                     Console.Write($"{WallCheck[1]}");
+                if (Goalx == Boxx && Goaly == Boxy)
+                {
+                    Console.SetCursorPosition(Boxx, Boxy);
+                    Console.Write($"{WallCheck[0]}");
+                    Console.SetCursorPosition(0, 21);
+                    Console.Write("clear");
 
-                    ConsoleKeyInfo Input = (Console.ReadKey(true));
+                    break;
+                }
+                else
+                {
+                    Console.SetCursorPosition(Goalx, Goaly);
+                    Console.Write($"{WallCheck[2]}");
+                }
+                    Console.SetCursorPosition(Boxx, Boxy);
+                    Console.Write($"{WallCheck[0]}");
+
+
+                ConsoleKeyInfo Input = (Console.ReadKey(true));
 
                     switch (Input.Key)
                     {
@@ -115,6 +132,27 @@ namespace Sokoban
                                 Console.Write("맵 밖으로 탈출하지 마라");
                                 --Playery;
                             }
+
+                            if(Playery == Boxy && Playerx == Boxx)
+                              {
+                           
+                            ++Boxy;
+                            if ( Boxy == MapSizeMax_y)
+                            {
+                                --Boxy;
+                            }
+                            if (Wallx == Boxx && Wally == Boxy)
+                            {
+                                --Boxy;
+                            }
+                            if (Playery == Boxy && Playerx == Boxx)
+                            {
+                                --Playery;
+                            }
+                            Console.SetCursorPosition(Boxx, Boxy);
+                            Console.Write($"{WallCheck[2]}");
+                            
+                        }
                             break;
 
                         case ConsoleKey.UpArrow:
@@ -134,7 +172,30 @@ namespace Sokoban
                                 Console.Write("맵 밖으로 탈출하지 마라");
                                 ++Playery;
                             }
-                            break;
+
+                        if (Playery == Boxy && Playerx == Boxx)
+                        {
+                            
+                            --Boxy;
+                            if (Boxy == MapSizeMin_y)
+                            {
+                                ++Boxy;
+                            }
+                            if (Boxy == Wally && Boxx == Wallx)
+                            {
+                                ++Boxy;
+                            }
+                            if (Playery == Boxy && Playerx == Boxx)
+                            {
+                                ++Playery;
+                            }
+                            Console.SetCursorPosition(Boxx, Boxy);
+                            Console.Write($"{WallCheck[2]}");
+                            
+
+                        }
+
+                        break;
 
                         case ConsoleKey.RightArrow:
 
@@ -152,7 +213,28 @@ namespace Sokoban
                                 Console.Write("맵 밖으로 탈출하지 마라");
                                 --Playerx;
                             }
-                            break;
+
+                        if (Playery == Boxy && Playerx == Boxx)
+                        {
+                            ++Boxx;
+                            if (Boxx == MapSizeMax_x)
+                            {
+                                --Boxx;
+                            }
+                            if (Boxx == Wallx && Boxy == Wally)
+                            {
+                                --Boxx;
+                            }
+                            if (Playery == Boxy && Playerx == Boxx)
+                            {
+                                --Playerx;
+                            }
+                            Console.SetCursorPosition(Boxx, Boxy);
+                            Console.Write($"{WallCheck[2]}");
+                        }
+
+                        break;
+
                         case ConsoleKey.LeftArrow:
 
                             Console.Clear();
@@ -169,14 +251,38 @@ namespace Sokoban
                                 Console.Write("맵 밖으로 탈출하지 마라");
                                 ++Playerx;
                             }
-                            break;
+
+                        if (Playery == Boxy && Playerx == Boxx)
+                        {
+                          --Boxx;
+                            if (Boxx == MapSizeMin_x)
+                            {
+                                ++Boxx; 
+                            }
+                            if (Boxx == Wallx && Boxy == Wally)
+                            {
+                                ++Boxx;
+                            }
+                            if (Playery == Boxy && Playerx == Boxx)
+                            {
+                                ++Playerx;
+                            }
+                            Console.SetCursorPosition(Boxx, Boxy);
+                            Console.Write($"{WallCheck[2]}");
+                          
+                        }
+
+                        break;
 
                         case ConsoleKey.F5:
                             Console.Clear();
 
-                            Playerx = 5;
-                            Playery = 10;
-                            break;
+                            Playerx = 1;
+                            Playery = 1;
+                            Boxx = 7;
+                            Boxy = 4;
+
+                        break;
 
                     }
                     Infinity++;
@@ -191,6 +297,7 @@ namespace Sokoban
                     }
 
                 }
+                while(true);
             }
         }
     }
