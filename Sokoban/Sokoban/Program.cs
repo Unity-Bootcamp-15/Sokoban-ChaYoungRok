@@ -1,147 +1,199 @@
-﻿namespace Sokoban
+﻿using System;
+
+namespace Sokoban
 {
+    
     internal class Program
     {
-
-        static void Main(string[] args)
+        static void StageMakerSub2()
         {
-            Console.ResetColor();
-
-            Console.BackgroundColor = ConsoleColor.Cyan;
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.Title = "Sokaban!!!";
-            Console.CursorVisible = false;
-            Console.Clear();
-            int x = 5;
-            int y = 10;
-            int wall_x = 10;
-            int wall_y = 10;
-            string [] wall =  new string[]{"@","Λ",">","<","v"};
-
-            Console.SetCursorPosition(x,y);
-            Console.Write("*");
-            
-            int Infinity = 1;
-            while (Infinity<5)
+            string Wall1 = "★";
+            string Wall2 = "Λ";
+            string Wall3 = "☆";
+            string Wall4 = "-";
+            for (int i = 0; i < 20; i++)
             {
-                Console.SetCursorPosition(wall_x, wall_y);
-                Console.Write($"{wall[1]}");
-                ConsoleKeyInfo Input = (Console.ReadKey(true));
+                Console.Write(Wall4);
+            }
+        }
+        static void StageMakerSub1()
+        {
+            string Wall1 = "★";
+            string Wall2 = "Λ";
+            string Wall3 = "☆";
+            string Wall4 = "l";
+            int LineMaker = 0;
+            
+            for (int i = 1; i < 10; i++)
+            {
+                Console.SetCursorPosition(LineMaker, i);
+                Console.Write($"{Wall4}");
+                Console.SetCursorPosition(LineMaker+20,i);
+                Console.WriteLine($"{Wall4}");
+            }
+        }
+        static void StageMaker()
+        {
+            string Wall1 = "★";
+            string Wall2 = "Λ";
+            string Wall3 = "☆";
+            string Wall4 = "-";
+            Random CanMoveWall = new Random();
+            Random DontMoveWall = new Random();
 
-                switch (Input.Key)
-                {
-                    case ConsoleKey.DownArrow:
+                StageMakerSub2();
+                StageMakerSub1();
+                StageMakerSub2();
 
-                        Console.Clear();
-                        ++y;
-                        if(y==wall_y && x == wall_x)
-                        {
-                            --y;
-                        }
-                        break;
+        }
+    
+        static  void Worldmap()
+        {
 
-                    case ConsoleKey.UpArrow:
+            int WorldMake = int.Parse(Console.ReadLine());
 
-                        Console.Clear();
-                        --y;
-                        if (y == 0)
-                        {
-                            ++y;
-                        }
+            if (WorldMake == 1)
+            {
+                Console.WriteLine();
+            }
 
-                        if(y==wall_y && x==wall_x)
-                        {
-                            ++y;
-                        }
-                        break;
+        }
 
-                    case ConsoleKey.RightArrow:
-
-                        Console.Clear();
-                        ++x;
-                        if(x==wall_x && y == wall_y)
-                        {
-                            --x;
-                        }
-                        break;
-                    case ConsoleKey.LeftArrow:
-
-                        Console.Clear();
-                        --x;
-                        if (x == 0)
-                        {
-                            ++x;
-                        }
-                        if(x==wall_x && y == wall_y)
-                        {
-                            ++x;
-                        }
-                        break;
-
-                    case ConsoleKey.F5:
-                        Console.Clear();
-
-                        x = 5;
-                        y = 10;
-                        break;
-
-                }
-
-                Infinity++;
-                Infinity--;
-                Console.SetCursorPosition(x, y);
-                Console.WriteLine("*");
-
-                if (Input.Key == ConsoleKey.Escape)
-                {
-                    break;
-                }
+            static void Main(string[] args)
+            {
+                Console.ResetColor();
+                Console.BackgroundColor = ConsoleColor.Cyan;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.Title = "Sokaban!!!";
+                Console.CursorVisible = false;
+                Console.Clear();
+                int Playerx = 1;
+                int Playery = 1;
+                int Wallx = 5;
+                int Wally = 2;
+                string[] WallCheck = new string[] { "★", "Λ", "☆", "-" };
+                int MapSizeMax_x = 20;
+                int MapSizeMax_y = 10;
+                int MapSizeMin_x = 0;
+                int MapSizeMin_y = 0;
 
                 /*
-                    if (Input.Key == ConsoleKey.DownArrow)
-                    {
-                        Console.SetCursorPosition(x, y);
-                        Console.WriteLine(" ");
-                        ++y;
-                        Console.SetCursorPosition(x, y);
-                        Console.WriteLine("*");
-                    }
-                    else if (Input.Key == ConsoleKey.UpArrow)
-                    {
-                        Console.SetCursorPosition(x, y);
-                        Console.WriteLine(" ");
-                        --y;
-                       if(y == 0)
-                        {
-                            y++;
-                        }
-                        Console.SetCursorPosition(x, y);
-                        Console.WriteLine("*");
-                    }
-                    else if (Input.Key == ConsoleKey.RightArrow)
-                    {
-                        Console.SetCursorPosition(x, y);
-                        Console.WriteLine(" ");
-                        ++x;
-                        Console.SetCursorPosition(x, y);
-                        Console.WriteLine("*");
-                    }
-                    else if (Input.Key == ConsoleKey.LeftArrow)
-                    {
-                        Console.SetCursorPosition(x, y);
-                        Console.WriteLine(" ");
-                        --x;
-                       if(x==0)
-                        {
-                            x++; 
-                        }
-                        Console.SetCursorPosition(x, y);
-                        Console.WriteLine("*");
-                    }
-
+                지금 구현해야할거 == 벽, 박스, 골인하기
+                맵 크기 20*10
+                플레이어 스타트 위치 (6,3)
                 */
 
+
+                Console.SetCursorPosition(Playerx, Playery);
+                Console.Write("*");
+
+                int Infinity = 1;
+                while (Infinity < 5)
+                {
+                    Console.SetCursorPosition(0, 0);
+                    StageMaker();
+                    Console.SetCursorPosition(Wallx, Wally);
+                    Console.Write($"{WallCheck[1]}");
+
+                    ConsoleKeyInfo Input = (Console.ReadKey(true));
+
+                    switch (Input.Key)
+                    {
+                        case ConsoleKey.DownArrow:
+
+                            Console.Clear();
+                            ++Playery;
+                            if (Playery == Wally && Playerx == Wallx)
+                            {
+                                Console.SetCursorPosition(0, 21);
+                                Console.Write("충돌함");
+                                --Playery;
+                            }
+                            if (Playery == MapSizeMax_y)
+                            {
+                                Console.SetCursorPosition(0, 21);
+                                Console.Write("맵 밖으로 탈출하지 마라");
+                                --Playery;
+                            }
+                            break;
+
+                        case ConsoleKey.UpArrow:
+
+                            Console.Clear();
+                            --Playery;
+
+                            if (Playery == Wally && Playerx == Wallx)
+                            {
+                                Console.SetCursorPosition(0, 21);
+                                Console.Write("충돌함");
+                                ++Playery;
+                            }
+                            if (Playery == MapSizeMin_y)
+                            {
+                                Console.SetCursorPosition(0, 21);
+                                Console.Write("맵 밖으로 탈출하지 마라");
+                                ++Playery;
+                            }
+                            break;
+
+                        case ConsoleKey.RightArrow:
+
+                            Console.Clear();
+                            ++Playerx;
+                            if (Playerx == Wallx && Playery == Wally)
+                            {
+                                Console.SetCursorPosition(0, 21);
+                                Console.Write("충돌함");
+                                --Playerx;
+                            }
+                            if (Playerx == MapSizeMax_x)
+                            {
+                                Console.SetCursorPosition(0, 21);
+                                Console.Write("맵 밖으로 탈출하지 마라");
+                                --Playerx;
+                            }
+                            break;
+                        case ConsoleKey.LeftArrow:
+
+                            Console.Clear();
+                            --Playerx;
+                            if (Playerx == Wallx && Playery == Wally)
+                            {
+                                Console.SetCursorPosition(0, 21);
+                                Console.Write("충돌함");
+                                ++Playerx;
+                            }
+                            if (Playerx == MapSizeMin_x)
+                            {
+                                Console.SetCursorPosition(0, 21);
+                                Console.Write("맵 밖으로 탈출하지 마라");
+                                ++Playerx;
+                            }
+                            break;
+
+                        case ConsoleKey.F5:
+                            Console.Clear();
+
+                            Playerx = 5;
+                            Playery = 10;
+                            break;
+
+                    }
+                    Infinity++;
+                    Infinity--;
+                    Console.SetCursorPosition(Playerx, Playery);
+                    Console.WriteLine("*");
+
+
+                    if (Input.Key == ConsoleKey.Escape)
+                    {
+                        break;
+                    }
+
+                }
             }
         }
     }
-}
+
+
+
