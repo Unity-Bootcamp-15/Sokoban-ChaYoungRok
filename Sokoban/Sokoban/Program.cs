@@ -82,23 +82,27 @@ namespace Sokoban
                 int Boxy = 4;
                 int DoubleMaker = 0;
                 int DoubleMakerSub1 = 3;
-            Random RandomWallmaker = new Random();
+                Random RandomWallmaker = new Random();
+                int[] ToMantyWallx = new int[] {9,10,11};
+                int[] ToMantyWally = new int[] {4,1,3};
 
-                Console.SetCursorPosition(Playerx, Playery);
+            Console.SetCursorPosition(Playerx, Playery);
                 Console.Write("*");
 
 
-                int Infinity = 1; //그냥 와일문에 트루 박으셈. 이거 코드장난임. == 쓰레기코드라는뜻
-            while (Infinity < 5)
+            bool Infinity = true;
+            while (Infinity)
             {
                 Console.SetCursorPosition(0, 0);
                 StageMaker();
 
-                for (DoubleMaker = 0; DoubleMaker < 5; DoubleMaker+=DoubleMakerSub1)
-                {
-                    Console.SetCursorPosition(Wallx+DoubleMaker, Wally+DoubleMaker);
-                    Console.Write($"{WallCheck[1]}");
-                }
+                Console.SetCursorPosition(Wallx, Wally);
+                Console.WriteLine(WallCheck[1]);
+
+                //for(int i =0; , i<3; i++)
+                Console.SetCursorPosition(ToMantyWallx[0], ToMantyWally[0]);
+                Console.WriteLine(WallCheck[1]);
+
                     if (Goalx == Boxx && Goaly == Boxy)
                     {
                         Console.SetCursorPosition(Boxx, Boxy);
@@ -132,13 +136,12 @@ namespace Sokoban
                             --Playery;
                         }
 
-                        if (Playery == (Wally + (DoubleMakerSub1)) && Playerx == Wallx+DoubleMakerSub1)
+                        if(Playery == ToMantyWally[0] && Playerx == ToMantyWallx[0])
                         {
                             Console.SetCursorPosition(0, 21);
                             Console.Write("충돌함");
                             --Playery;
                         }
-
 
                         if (Playery == MapSizeMax_y)
                         {
@@ -158,10 +161,11 @@ namespace Sokoban
                             {
                                 --Boxy;
                             }
-                            if((Wallx + DoubleMakerSub1) == Boxx && (Wally +DoubleMakerSub1) == Boxy)
+                            if (ToMantyWallx[0] == Boxx && ToMantyWally[0] == Boxy)
                             {
                                 --Boxy;
                             }
+
                             if (Playery == Boxy && Playerx == Boxx)
                             {
                                 --Playery;
@@ -185,13 +189,12 @@ namespace Sokoban
                                 ++Playery;
                             }
 
-                        if (Playery == (Wally + (DoubleMakerSub1)) && Playerx == Wallx + DoubleMakerSub1)
-                        {
-                            Console.SetCursorPosition(0, 21);
-                            Console.Write("충돌함");
-                            ++Playery;
-                        }
-
+                             if (Playery == ToMantyWally[0] && Playerx == ToMantyWallx[0])
+                               {
+                                  Console.SetCursorPosition(0, 21);
+                                  Console.Write("충돌함");
+                                 ++Playery;
+                                }
                         if (Playery == MapSizeMin_y)
                             {
                                 Console.SetCursorPosition(0, 21);
@@ -211,19 +214,17 @@ namespace Sokoban
                                 {
                                     ++Boxy;
                                 }
-                                if ((Wallx + DoubleMakerSub1) == Boxx && (Wally + DoubleMakerSub1) == Boxy)
-                                {
-                                    ++Boxy;
-                                 }
-                            if (Playery == Boxy && Playerx == Boxx)
-                                {
+                              if (Boxy == ToMantyWally[0] && Boxx == ToMantyWallx[0])
+                                  {
+                                     ++Boxy;
+                                  }
+                                 if (Playery == Boxy && Playerx == Boxx)
+                                 {
                                     ++Playery;
-                                }
+                                  }
                                 Console.SetCursorPosition(Boxx, Boxy);
                                 Console.Write($"{WallCheck[2]}");
-
                             }
-
                             break;
 
                         case ConsoleKey.RightArrow:
@@ -237,13 +238,12 @@ namespace Sokoban
                                 --Playerx;
                             }
 
-                              if (Playerx == (Wallx+DoubleMakerSub1) && Playery == (Wally+DoubleMakerSub1))
-                              {
+                        if (Playerx == ToMantyWallx[0] && Playery == ToMantyWally[0])
+                            {
                             Console.SetCursorPosition(0, 21);
                             Console.Write("충돌함");
                             --Playerx;
-                              }
-
+                            }
                               if (Playerx == MapSizeMax_x)
                               {
                                 Console.SetCursorPosition(0, 21);
@@ -262,11 +262,10 @@ namespace Sokoban
                                 {
                                     --Boxx;
                                 }
-                                 if (Boxx == (Wallx+DoubleMakerSub1) && Boxy == (Wally+DoubleMakerSub1))
+                                if(Boxx == ToMantyWallx[0] && Boxy == ToMantyWally[0])
                                  {
-                                     --Boxx;
-                                 }
-
+                                --Boxx;
+                                  }
                             if (Playery == Boxy && Playerx == Boxx)
                                 {
                                     --Playerx;
@@ -288,12 +287,12 @@ namespace Sokoban
                                 ++Playerx;
                             }
 
-                        if (Playerx == (Wallx + DoubleMakerSub1) && Playery == (Wally + DoubleMakerSub1))
-                        {
+                            if (Playerx == ToMantyWallx[0] && Playery == ToMantyWally[0])
+                            {
                             Console.SetCursorPosition(0, 21);
                             Console.Write("충돌함");
                             ++Playerx;
-                        }
+                            }
 
                         if (Playerx == MapSizeMin_x)
                             {
@@ -313,9 +312,10 @@ namespace Sokoban
                                 {
                                     ++Boxx;
                                 }
-                                if (Boxx == (Wallx + DoubleMakerSub1) && Boxy == (Wally + DoubleMakerSub1))
+                               
+                                if(Boxx == ToMantyWallx[0] && Boxy == ToMantyWally[0])
                                 {
-                                ++Boxx;
+                                ++Boxx; 
                                 }
 
                             if (Playery == Boxy && Playerx == Boxx)
@@ -339,8 +339,8 @@ namespace Sokoban
 
                             break;
                     }
-                    Infinity++;
-                    Infinity--;
+                    
+                    
                     Console.SetCursorPosition(Playerx, Playery);
                     Console.WriteLine("*");
 
